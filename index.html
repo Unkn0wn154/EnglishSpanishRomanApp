@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d5c4b">
+<title>Español · English</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app"></main>
+<nav id="nav">
+  <a href="#today">🏠<span>Aujourd’hui</span></a>
+  <a href="#lessons">📖<span>Leçons</span></a>
+  <a href="#tests">✍️<span>Tests</span></a>
+  <a href="#words">🔎<span>Mots</span></a>
+  <a href="#settings">⚙️<span>Réglages</span></a>
+</nav>
+<script src="files.js"></script>
+<script>
+// load only the chosen course's data, then the engine (?course=en / ?course=es switches too)
+const asked = new URLSearchParams(location.search).get('course');
+if (asked === 'en' || asked === 'es') localStorage.setItem('esen-course', asked);
+const COURSE = localStorage.getItem('esen-course') === 'en' ? 'en' : 'es';
+document.documentElement.lang = COURSE;
+for (const f of FILES[COURSE]) document.write(`<script src="${COURSE}/${f}"><\/script>`);
+document.write('<script src="app.js"><\/script>');
+</script>
+</body>
+</html>
